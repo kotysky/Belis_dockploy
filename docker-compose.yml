@@ -16,9 +16,9 @@ services:
       - GENERIC_TIMEZONE=${GENERIC_TIMEZONE}
       - N8N_SECURE_COOKIE=false
     volumes:
-      - n8n_data-belis-n8n-f8fb9m:/home/node/.n8n
+      - n8n_data-belis-n8n-5e9965:/home/node/.n8n
     networks:
-      - belis-n8n-f8fb9m
+      - belis-n8n-5e9965
     labels:
       traefik.http.routers.belis-n8n.rule: "Host(`${N8N_HOST}`)"
       traefik.http.routers.belis-n8n.entrypoints: "web"
@@ -31,8 +31,8 @@ services:
       traefik.http.routers.belis-n8n-secure.tls.certresolver: "letsencrypt"
       traefik.enable: "true"
 volumes:
-  n8n_data-belis-n8n-f8fb9m: null
+  n8n_data-belis-n8n-5e9965: null
 networks:
   belis-n8n-f8fb9m:
-    name: belis-n8n-f8fb9m
+    name: belis-n8n-5e9965
     external: true
