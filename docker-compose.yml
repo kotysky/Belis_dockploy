@@ -21,9 +21,9 @@ services:
     labels:
       # ... tus labels de Traefik ...
 volumes:
-  n8n_data-belis-n8n-knnm3j: null
+  n8n_data-belis-n8n: null
 
 networks:
-  belis-n8n-knnm3j:
-    name: belis-n8n-knnm3j
+  belis-n8n:
+    name: belis-n8n
     external: true
