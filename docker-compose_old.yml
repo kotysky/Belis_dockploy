@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  n8n:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    env_file: .env
+    environment:
+      - N8N_PROTOCOL=http
+      - NODE_ENV=production
+      - WEBHOOK_URL=https://${N8N_HOST}/
+      - N8N_SECURE_COOKIE=false
+    volumes:
+      - n8n_data-belis-n8n-knnm3j:/home/node/.n8n
+    networks:
+      - belis-n8n-knnm3j
+    labels:
+      traefik.http.routers.belis-n8n.rule: "Host(`${N8N_HOST}`)"
+      traefik.http.routers.belis-n8n.entrypoints: "web"
+      traefik.http.services.belis-n8n.loadbalancer.server.port: "${N8N_PORT}"
+      traefik.http.routers.belis-n8n.middlewares: "redirect-to-https@file"
+      traefik.http.routers.belis-n8n-secure.rule: "Host(`${N8N_HOST}`)"
+      traefik.http.routers.belis-n8n-secure.entrypoints: "websecure"
+      traefik.http.services.belis-n8n-secure.loadbalancer.server.port: "${N8N_PORT}"
+      traefik.http.routers.belis-n8n-secure.service: "belis-n8n-secure"
+      traefik.http.routers.belis-n8n-secure.tls.certresolver: "letsencrypt"
+      traefik.enable: "true"
+
+volumes:
+  n8n_data-belis-n8n-knnm3j: {}
+
+networks:
+  belis-n8n-knnm3j:
+    external: true
+    name: belis-n8n-knnm3j
