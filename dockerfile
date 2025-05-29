@@ -8,10 +8,10 @@ RUN apk update \
   && rm -rf /var/cache/apk/*
 
 # Instala nodos comunitarios o personalizados (reemplaza con tus paquetes npm)
-RUN npm -i \
-  @n8n-nodes-imap \
-  @n8n-nodes-evolution-api\
-  && npm prune --production
+#RUN npm -i \
+#  @n8n-nodes-imap \
+#  @n8n-nodes-evolution-api\
+#  && npm prune --production
 
 # Ajusta permisos de usuario
 RUN chown -R node:node /home/node
