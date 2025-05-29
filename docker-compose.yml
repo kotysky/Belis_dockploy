@@ -20,11 +20,16 @@ services:
     networks:
       - belis-n8n-f8fb9m
     labels:
-      - traefik.http.routers.belis-n8n-f8fb9m-2-web.rule=Host(`belis-n8n-5f9361-31-97-53-209.traefik.me`)
-      - traefik.http.routers.belis-n8n-f8fb9m-2-web.entrypoints=web
-      - traefik.http.services.belis-n8n-f8fb9m-2-web.loadbalancer.server.port=5678
-      - traefik.http.routers.belis-n8n-f8fb9m-2-web.service=belis-n8n-f8fb9m-2-web
-      - traefik.enable=true
+      traefik.http.routers.belis-n8n.rule: "Host(`${N8N_HOST}`)"
+      traefik.http.routers.belis-n8n.entrypoints: "web"
+      traefik.http.services.belis-n8n.loadbalancer.server.port: "${N8N_PORT}"
+      traefik.http.routers.belis-n8n.middlewares: "redirect-to-https@file"
+      traefik.http.routers.belis-n8n-secure.rule: "Host(`${N8N_HOST}`)"
+      traefik.http.routers.belis-n8n-secure.entrypoints: "websecure"
+      traefik.http.services.belis-n8n-secure.loadbalancer.server.port: "${N8N_PORT}"
+      traefik.http.routers.belis-n8n-secure.service: "belis-n8n-secure"
+      traefik.http.routers.belis-n8n-secure.tls.certresolver: "letsencrypt"
+      traefik.enable: "true"
 volumes:
   n8n_data-belis-n8n-f8fb9m: null
 networks:
