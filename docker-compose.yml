@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  n8n:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # image: docker.n8n.io/n8nio/n8n:1.83.2  <-- quita o comenta esta línea
+    restart: always
+    environment:
+      - N8N_HOST=${N8N_HOST}
+      - N8N_PORT=${N8N_PORT}
+      - N8N_PROTOCOL=http
+      - NODE_ENV=production
+      - WEBHOOK_URL=https://${N8N_HOST}/
+      - GENERIC_TIMEZONE=${GENERIC_TIMEZONE}
+      - N8N_SECURE_COOKIE=false
+    volumes:
+      - n8n_data-belis-n8n-knnm3j:/home/node/.n8n
+    networks:
+      - belis-n8n-knnm3j
+    labels:
+      # ... tus labels de Traefik ...
+volumes:
+  n8n_data-belis-n8n-knnm3j: null
+
+networks:
+  belis-n8n-knnm3j:
+    name: belis-n8n-knnm3j
+    external: true
