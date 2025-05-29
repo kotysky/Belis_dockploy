@@ -9,8 +9,8 @@ RUN apk update \
 
 # Instala nodos comunitarios o personalizados (reemplaza con tus paquetes npm)
 RUN npm install -g \
-  @n8n-nodes-community/n8n-nodes-imap \
-  @n8n-nodes-community/n8n-nodes-evolution-api\
+  @n8n-nodes-imap \
+  @n8n-nodes-evolution-api\
   && npm prune --production
 
 # Ajusta permisos de usuario
